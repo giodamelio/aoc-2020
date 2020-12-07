@@ -1,5 +1,6 @@
 (ns aoc-2020.util
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [clojure.java.io :as io]))
 
 (defn parse-int
   "Parse a string to an int"
@@ -34,3 +35,9 @@
                      (keyword first)
                      (.group matcher first))))))
       {})))
+
+(defn get-puzzle-input [day]
+  "Gets the puzzle input for a day"
+  (-> (str "inputs/" (format "%02d" day) ".txt")
+      (io/resource)
+      (slurp)))
