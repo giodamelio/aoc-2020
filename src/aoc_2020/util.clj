@@ -6,7 +6,7 @@
   [string]
   (Integer/parseInt (re-find #"\A[-+]?\d+" string)))
 
-(defn- get-capture-groups
+(defn get-capture-groups
   "List the capture groups in a regex"
   [re]
   (->> re
