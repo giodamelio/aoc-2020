@@ -24,7 +24,6 @@
             :second 2
             :third  3}))))
 
-
 (deftest get-puzzle-input-test
   (testing "Loads a input"
     (is (get-puzzle-input 3))))
