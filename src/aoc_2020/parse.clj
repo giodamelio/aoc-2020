@@ -31,3 +31,8 @@
         :else
         (let [[new-output remaining-input] (take-pattern pattern remaining-input)]
           (recur remaining-patterns (merge output new-output) remaining-input))))))
+
+(def number [:int #"\d+"])
+(def letters #"[a-z]+")
+(def line [number " " letters "\n"])
+(def lines [:one-or-more line])
