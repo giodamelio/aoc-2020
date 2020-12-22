@@ -19,9 +19,15 @@
          remaining-input input]
     (if (empty? remaining-input)
       output
-      (case pattern
+      (cond
         ;; Ignore all whitespace
-        :ignore-whitespace (recur remaining-patterns output (str/triml remaining-input))
+        (= pattern [:ignore-whitespace])
+        (recur remaining-patterns output (str/triml remaining-input))
+        ;; Ignore something specific
+        (= (first pattern) :ignore)
+        (let [[_ remaining-input] (take-pattern pattern remaining-input)]
+          (recur remaining-patterns output remaining-input))
         ;; Parse the pattern
+        :else
         (let [[new-output remaining-input] (take-pattern pattern remaining-input)]
           (recur remaining-patterns (merge output new-output) remaining-input))))))

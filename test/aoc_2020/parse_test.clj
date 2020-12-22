@@ -29,15 +29,23 @@
   (testing "Ignore whitespace"
     (is (= (parse
              [[:numbers #"\d+"]
-              :ignore-whitespace
+              [:ignore-whitespace]
               [:letters #"[a-z]+"]]
              "2002 abc")
+           {:numbers "2002"
+            :letters "abc"})))
+  (testing "Ignore specific thing"
+    (is (= (parse
+             [[:numbers #"\d+"]
+              [:ignore #"-"]
+              [:letters #"[a-z]+"]]
+             "2002-abc")
            {:numbers "2002"
             :letters "abc"})))
   (testing "With converters"
     (is (= (parse
              [[:numbers #"\d+" parse-int]
-              :ignore-whitespace
+              [:ignore-whitespace]
               [:letters #"[a-z]+" count]]
              "2002 abc")
            {:numbers 2002
