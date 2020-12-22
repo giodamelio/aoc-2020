@@ -1,9 +1,18 @@
 (ns aoc-2020.day-02
   (:require [aoc-2020.util :refer :all]
+            [aoc-2020.parse :refer :all]
             [clojure.string :as str]))
 
 (defn parse-entry [line]
-  (re-find-named-groups #"(?<lowint>\d+)-(?<highint>\d+) (?<requiredchar>[a-z]): (?<password>.*)$" line))
+  (parse
+    [[:low    #"\d+" parse-int]
+     [:ignore #"-"]
+     [:high   #"\d+" parse-int]
+     [:ignore-whitespace]
+     [:requiredchar #"[a-z]"]
+     [:ignore #": "]
+     [:password #"[a-z]+"]]
+    line))
 
 (defn parse-input [input]
   (->> input
